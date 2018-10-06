@@ -1,1 +1,45 @@
-@import url("./node_modules/bootstrap/dist/css/bootstrap.min.css");
+@import url("./node_modules/codemirror/lib/codemirror.css");
+@import url("./node_modules/codemirror/theme/darcula.css");
+@import url("./node_modules/bootstrap/dist/css/bootstrap.css");
+@import url("./node_modules/@fortawesome/fontawesome-free/css/all.min.css");
+
+.panel {
+  padding-left: 0px;
+}
+
+#editor {
+  width: 100%;
+  height: 100%;
+}
+#results {
+  width: 100%;
+}
+
+.CodeMirror {
+  height: 100%;
+}
+
+form {
+  padding-top: calc(50% - 69px);
+}
+
+form.validated {
+  padding-top: 10px;
+  transition: padding-top 0.5s;
+}
+
+#stacUrl:invalid {
+  border: 2px solid red;
+  background: #ffd3d3
+}
+
+.validation-error {
+  background-color:#fff;
+  min-height: 50px;
+  border: 2px solid #f00;
+  padding: 10px;
+  font-size: 1.2em;
+}
+.validation-error i {
+  color: #f00;
+}

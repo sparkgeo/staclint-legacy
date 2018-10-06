@@ -8,7 +8,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bundle.css">
 
-
     <title>STAC Lint - The STAC catalog and/or Item JSON linter</title>
   </head>
   <body>
@@ -25,8 +24,67 @@
 
     <div class="container-fluid" style="height: calc(100vh - 82px);">
       <div class="row" style="height: 100%;">
-        <div class="col">LEFT PANEL</div>
-        <div class="col">RIGHT PANEL</div>
+        <div class="col panel">
+          <div id="editor"></div>
+        </div>
+        <div class="col panel">
+            <div style="height: 100%;">
+              <form name="form" id="validateForm">
+
+                <div class="row">
+                <div class="col col-md-12">
+                  <div class="form-group">
+                    <label for="form">Paste your code on the left, or provide an external URL</label>
+                    <input
+                      id="stacUrl"
+                      name="url"
+                      type="url"
+                      pattern="https://.*"
+                      class="form-control form-control-lg"
+                      placeholder="External STAC JSON URL"
+                    >
+                  </div>
+                </div>
+
+
+                </div>
+
+                <div class="row">
+                  <div class="col col-md-6">
+                    <button id="validateButton" type="button" class="btn btn-lg btn-light" style="width: 100%;">Validate</button>
+                  </div>
+
+
+                  <div class="col col-md-6">
+                    <div class="form-group form-control-lg">
+                      <select
+                        name="stacversion"
+                        id="stacVersions"
+                        class="form-control"
+                      >
+                        <option selected value="latest">latest</option>
+                      </select>
+                    </div>
+                  </div>
+
+
+
+                </div>
+
+              </form>
+
+              <div id="results" class="mx-3 my-3">
+                <div class="row">
+                  <div class="col-md-12 validation-error">
+                    <span><i class="fa fa-exclamation-circle"></i> Error</span>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+        </div>
       </div>
     </div>
 
