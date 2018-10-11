@@ -28,18 +28,37 @@ form.validated {
   transition: padding-top 0.5s;
 }
 
+button i {
+  margin-right: 5px;
+}
+
 #stacUrl:invalid {
   border: 2px solid red;
   background: #ffd3d3
 }
 
-.validation-error {
+.validation-alert {
   background-color:#fff;
   min-height: 50px;
-  border: 2px solid #f00;
+  border: 2px solid black;
   padding: 10px;
   font-size: 1.2em;
+  width: 100%;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.validation-success {
+  border-color: #27873C;
+}
+
+.validation-error {
+  border-color: #C62637;
 }
 .validation-error i {
-  color: #f00;
+  color: #C62637;
+}
+
+.validation-success i {
+  color: #27873C;
 }
