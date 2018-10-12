@@ -2,9 +2,14 @@
 @import url("./node_modules/codemirror/theme/darcula.css");
 @import url("./node_modules/bootstrap/dist/css/bootstrap.css");
 @import url("./node_modules/@fortawesome/fontawesome-free/css/all.min.css");
+@import url("./node_modules/@fortawesome/fontawesome-free/css/brands.min.css");
 
 .panel {
+  position: relative;
   padding-left: 0px;
+}
+.form-wrapper {
+  height: calc(100% - 30px);
 }
 
 #editor {
@@ -13,6 +18,15 @@
 }
 #results {
   width: 100%;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.8em;
+}
+
+footer a {
+  text-decoration: underline;
 }
 
 .CodeMirror {
