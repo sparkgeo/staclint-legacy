@@ -124,7 +124,9 @@ var displayValidationSuccess = function() {
   $results.append(message);
 };
 
-var runValidate = function () {
+var runValidate = function (event) {
+  event.preventDefault();
+
   setState(VALIDATING_STATE);
 
   var data = getFormValues();
@@ -159,6 +161,7 @@ var bindEvents = function () {
   $validateButton.click(runValidate);
   jsonEditor.on('change', onContentChange);
   $stacUrl.on('keypress input', onContentChange);
+  $validateForm.on('submit', runValidate);
 };
 
 $(document).ready(function () {
