@@ -15,9 +15,10 @@ var VALIDATED_STATE = 'validated';
 
 var jsonEditor = CodeMirror(document.getElementById('editor'), {
   value: "",
-  mode: "json",
   lineNumbers: true,
-  theme: 'darcula'
+  theme: 'blackboard',
+  matchBrackets: true,
+  mode: "json",
 });
 
 var clearMessages = function () {

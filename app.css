@@ -1,5 +1,5 @@
 @import url("./node_modules/codemirror/lib/codemirror.css");
-@import url("./node_modules/codemirror/theme/darcula.css");
+@import url("./node_modules/codemirror/theme/blackboard.css");
 @import url("./node_modules/bootstrap/dist/css/bootstrap.css");
 @import url("./node_modules/@fortawesome/fontawesome-free/css/all.min.css");
 @import url("./node_modules/@fortawesome/fontawesome-free/css/brands.min.css");
@@ -30,6 +30,11 @@ footer a {
 }
 
 .CodeMirror {
+  width: 100% !important;
+  height: 100%;
+}
+
+.CodeMirror-scroll {
   height: 100%;
 }
 
