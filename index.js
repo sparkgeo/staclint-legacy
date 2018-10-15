@@ -1,4 +1,4 @@
-require('./app.css');
+require('./index.css');
 var $ = require('jquery');
 var popper = require('popper.js');
 var bootstrap = require('bootstrap');

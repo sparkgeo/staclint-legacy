@@ -1,4 +1,17 @@
-node_modules/
+# All Potential Testing Files
 test_data.json
+
+# OS X directory store is saved in binary format, and should be hidden from git
+.DS_Store
+
+# Ignore all built products
+dist/
+.cache/
 bundle.css
 bundle.js
+
+# Always hide dotenv, even if it doesn't exist
+.env
+
+# We don't need no stinking node_modules...
+node_modules/

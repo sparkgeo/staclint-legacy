@@ -4,9 +4,15 @@ staclint.com
 
 
 
-### Running Locally
+Running Locally
+---
 
-* `npm install`
-* In one terminal window run `npm run watch`
-* In another terminal window run `npm run serve`
+### Installing
+To install the dependencies, run `npm i` in the command window. At this point, we aren't using environment variables, or any special configuration.
+
+### Running the Development Server
+To run the development server, run `npm start`.
+
+### Production Builds
+To produce a production build, run `npm run build`. You can test the build locally by running `npm run serve`.
 
