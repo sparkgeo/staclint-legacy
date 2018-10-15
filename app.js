@@ -19,6 +19,7 @@ var jsonEditor = CodeMirror(document.getElementById('editor'), {
   theme: 'blackboard',
   matchBrackets: true,
   mode: "json",
+  lineWrapping: true
 });
 
 var clearMessages = function () {
