@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom">
+  <div class="header bg-white border-bottom">
     <svg class="my-0 mr-md-auto" height="45px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <image xlink:href="images/logo.svg" src="images/logo.png" x="9" y="6" height="38px" width="138px" />
     </svg>
@@ -26,46 +26,38 @@
     </nav>
   </div>
 
-  <div class="container-fluid" style="height: calc(100vh - 82px);">
-    <div class="row" style="height: 100%;">
-      <div class="col-md-6 panel">
-        <div id="editor"></div>
-      </div>
-      <div class="col-md-6 panel">
-        <div class="form-wrapper">
-          <form name="form" id="validateForm">
-
-            <div class="row">
-              <div class="col col-md-12">
-                <div class="form-group">
-                  <label for="form">Paste your code on the left, or provide an external URL</label>
-                  <input id="stacUrl" name="url" type="url" pattern="^(http|https)://.*" class="form-control form-control-lg"
-                    placeholder="External STAC JSON URL">
-                </div>
-              </div>
+  <section>
+    <div id="editor"></div>
+  </section>
+  <section class="col">
+    <div class="form-wrapper">
+      <form name="form" id="validateForm">
+        <div class="row">
+          <div class="col col-md-12">
+            <div class="form-group">
+              <label for="form">Paste your code on the left, or provide an external URL</label>
+              <input id="stacUrl" name="url" type="url" pattern="^(http|https)://.*" class="form-control form-control-lg"
+                placeholder="External STAC JSON URL">
             </div>
-
-            <div class="row">
-              <div class="col col-md-6">
-                <button id="validateButton" type="button" class="btn btn-lg btn-light" style="width: 100%;" disabled>Validate</button>
-              </div>
-              <div class="col col-md-6">
-                <div class="form-group form-control-lg">
-                  <select name="version" id="stacVersions" class="form-control">
-                    <option selected value="v0.5.1">v0.5.1</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-          </form>
-
-          <div id="results"></div>
+          </div>
         </div>
-        <footer class="footer text-muted">Made by <a href="https://sparkgeo.com" class="text-muted">Sparkgeo</a></footer>
-      </div>
+        <div class="row">
+          <div class="col col-md-6">
+            <button id="validateButton" type="button" class="btn btn-lg btn-light" style="width: 100%;" disabled>Validate</button>
+          </div>
+          <div class="col col-md-6">
+            <div class="form-group form-control-lg">
+              <select name="stacversion" id="stacVersions" class="form-control">
+                <option selected value="latest">latest</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div id="results"></div>
     </div>
-  </div>
+    <footer class="footer text-muted">Made by <a href="https://sparkgeo.com" class="text-muted">Sparkgeo</a></footer>
+  </section>
 
   <script src="bundle.js"></script>
 </body>
