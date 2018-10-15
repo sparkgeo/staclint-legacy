@@ -4,20 +4,41 @@
 @import url("./node_modules/@fortawesome/fontawesome-free/css/all.min.css");
 @import url("./node_modules/@fortawesome/fontawesome-free/css/brands.min.css");
 
-.panel {
-  position: relative;
-  padding-left: 0px;
+/* VARIABLES */
+:root {
+  --main-success-color: #27873c;
+  --main-error-color: #c62637;
 }
+
 .form-wrapper {
   height: calc(100% - 30px);
 }
 
+body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 86px 1fr;
+  grid-gap: 10px;
+  height: 100vh;
+  width: 100vw;
+}
+
+.header {
+  grid-column: 1 / 3;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+}
+
 #editor {
-  width: 100%;
+  width: 49vw;
   height: 100%;
 }
+
 #results {
-  width: 100%;
+  width: 95%;
 }
 
 footer {
@@ -30,12 +51,12 @@ footer a {
 }
 
 .CodeMirror {
-  width: 100% !important;
-  height: 100%;
+  width: 49vw !important;
+  height: 98%;
 }
 
 .CodeMirror-scroll {
-  height: 100%;
+  height: 98%;
 }
 
 form {
@@ -52,32 +73,32 @@ button i {
 }
 
 #stacUrl:invalid {
-  border: 2px solid red;
-  background: #ffd3d3
+  border: 2px solid var(--main-error-color);
+  background: #ffd3d3;
 }
 
 .validation-alert {
-  background-color:#fff;
+  background-color: #fff;
   min-height: 50px;
   border: 2px solid black;
   padding: 10px;
   font-size: 1.2em;
-  width: 100%;
+  width: 95%;
   display: block;
   margin-bottom: 15px;
 }
 
 .validation-success {
-  border-color: #27873C;
+  border-color: var(--main-success-color);
 }
 
 .validation-error {
-  border-color: #C62637;
+  border-color: var(--main-error-color);
 }
 .validation-error i {
-  color: #C62637;
+  color: var(--main-error-color);
 }
 
 .validation-success i {
-  color: #27873C;
+  color: var(--main-success-color);
 }
