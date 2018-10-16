@@ -14,6 +14,9 @@ var VALIDATING_STATE = 'validating';
 var VALIDATED_STATE = 'validated';
 
 var jsonEditor = CodeMirror(document.getElementById('editor'), {
+  scrollbarStyle: 'native',
+  lineWrapping: true,
+  styleSelectedText: true,
   value: "",
   lineNumbers: true,
   theme: 'blackboard',
