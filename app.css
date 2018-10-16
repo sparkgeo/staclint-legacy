@@ -67,6 +67,14 @@ form.validated {
   transition: padding-top 0.5s;
 }
 
+#stacVersions {
+  height: 150%;
+  width: 110%;
+  position: relative;
+  bottom: 25%;
+  right: 5%;
+}
+
 button i {
   margin-right: 5px;
 }
