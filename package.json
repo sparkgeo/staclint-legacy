@@ -27,7 +27,10 @@
     "vue": "^2.5.17"
   },
   "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
     "parcel-bundler": "^1.10.3",
     "serve": "^10.0.2"
-  }
+  },
+  "browserslist": "> 0.25%, not dead, not ie <= 8"
 }

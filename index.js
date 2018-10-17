@@ -13,6 +13,11 @@ var isValid = false;
 var VALIDATING_STATE = 'validating';
 var VALIDATED_STATE = 'validated';
 
+const foo = "one";
+let bar = "two";
+
+console.log(`this is ${foo} ${bar}`)
+
 var jsonEditor = CodeMirror(document.getElementById('editor'), {
   value: "",
   lineNumbers: true,
