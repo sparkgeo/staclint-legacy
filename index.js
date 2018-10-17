@@ -1,8 +1,9 @@
 require('./index.css');
 var $ = require('jquery');
 var popper = require('popper.js');
-var bootstrap = require('bootstrap');
+// var bootstrap = require('bootstrap');
 var CodeMirror = require('codemirror');
+
 var $stacUrl;
 var $results;
 var $validateButton;
@@ -12,6 +13,7 @@ var $stacVersions;
 var isValid = false;
 var VALIDATING_STATE = 'validating';
 var VALIDATED_STATE = 'validated';
+var VALIDATION_URL = 'https://08tl0pxipc.execute-api.us-west-1.amazonaws.com/prod/stac_validator';
 
 const foo = "one";
 let bar = "two";
@@ -19,11 +21,10 @@ let bar = "two";
 console.log(`this is ${foo} ${bar}`)
 
 var jsonEditor = CodeMirror(document.getElementById('editor'), {
-  value: "",
+  value: '',
   lineNumbers: true,
   theme: 'blackboard',
-  matchBrackets: true,
-  mode: "json",
+  mode: 'json'
 });
 
 var clearMessages = function () {
@@ -33,12 +34,12 @@ var clearMessages = function () {
 var enableButton = function (isEnabled) {
   if (isEnabled) {
     $validateButton.removeAttr('disabled')
-    .addClass('btn-success')
-    .removeClass('btn-light');;
+      .addClass('btn-success')
+      .removeClass('btn-light');;
   } else {
     $validateButton.attr('disabled', true)
-    .addClass('btn-light')
-    .removeClass('btn-success');
+      .addClass('btn-light')
+      .removeClass('btn-success');
   }
 };
 
@@ -74,60 +75,78 @@ var setState = function (state) {
 };
 
 var addErrorMessage = function (msg) {
-  var message = '<div class="validation-alert  validation-error">' +
+  var message = '';
+  var error_message = msg.error.replace(/'(.*?)'/g, '<span class="code">$1</span>');
+
+  message += '<div class="validation-alert validation-error">' +
     '<i class="fa fa-exclamation-circle"></i> ' +
-    '<span>' + msg + '</span></div>';
+    '<span>' + error_message + '</span>';
+
+  if (msg.path && msg.path.startsWith('/tmp/') === false) {
+    message += '<div class="muted-text"><small>' + msg.path + '</small></div>';
+  }
+
+  message += '</div>';
   $results.append(message);
 };
 
 var validate = function () {
-  var errors = [{
-      "asset_type": "catalog",
-      "valid_stac": false,
-      "error": "'name' is a required property of []",
-      "children": [],
-      "path": "tests/test_data/nested_catalogs/999/invalid_catalog.json"
-    },
-    {
-      "asset_type": "item",
-      "valid_stac": false,
-      "error": "'href' is a required property",
-      "children": [],
-      "path": "tests/test_data/nested_catalogs/999/invalid_catalog.json"
-    }
-  ];
-  var deferred = $.Deferred();
-  setTimeout(function () {
-    deferred.resolve(errors);
-  }, 3000);
-  return deferred.promise();
+  var values = getFormValues();
+  var data = JSON.stringify(values);
+  return $.ajax({
+      type: 'POST',
+      url: VALIDATION_URL,
+      data: data,
+      dataType: 'json'
+    })
+    .then(function (results) {
+      return results;
+    });
 };
 
 var getFormValues = function () {
   var data = {};
-  data.schemaVersion = $stacVersions.val();
   var url = $stacUrl.val();
   var json = jsonEditor.getValue();
-  if (url.length === 0 && json.length > 0) {
+
+  data.version = $stacVersions.val();
+  if (json) {
     data.json = json;
-  } else if (url.length > 0) {
+  } else if (url) {
     data.url = url;
   }
   return data;
 };
 
-var displayValidationErrors = function(errors) {
+var displayValidationErrors = function (errors) {
   for (var i = 0; i < errors.length; i++) {
-    var item = errors[i];
-    addErrorMessage(item.error);
+    addErrorMessage(errors[i]);
   }
 }
 
-var displayValidationSuccess = function() {
+var displayValidationSuccess = function () {
   var message = '<div class="validation-alert validation-success">' +
     '<i class="fa fa-check-circle"></i> ' +
     '<span>No errors found. JSON is valid.</span></div>';
   $results.append(message);
+};
+
+var unwrapValidationResults = function (results, output) {
+  if (results.children) {
+    for (var i = 0; i < results.children.length; i++) {
+      var child = results.children[i];
+      unwrapValidationResults(child, output);
+    }
+  }
+
+  if (results.valid_stac === false) {
+    output.push({
+      path: results.path,
+      error: results.error,
+      asset_type: results.asset_type,
+    });
+  }
+  return output;
 };
 
 var runValidate = function (event) {
@@ -139,12 +158,11 @@ var runValidate = function (event) {
   clearMessages();
   return validate(data)
     .then(function (results) {
-
-      if (results.length > 0) {
-        displayValidationErrors(results);
-      }
-      else {
+      var validationErrors = unwrapValidationResults(results, []);
+      if (validationErrors.length === 0) {
         displayValidationSuccess();
+      } else {
+        displayValidationErrors(validationErrors);
       };
     })
     .done(function () {
