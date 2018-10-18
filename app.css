@@ -87,7 +87,7 @@ button i {
   border: 2px solid black;
   padding: 10px;
   font-size: 1.2em;
-  width: 95%;
+  width: 100%;
   display: block;
   margin-bottom: 15px;
 }
@@ -105,4 +105,8 @@ button i {
 
 .validation-success i {
   color: var(--main-success-color);
+}
+
+.code {
+  font-family: 'Courier New', Courier, monospace;
 }
