@@ -107,7 +107,7 @@ var getFormValues = function () {
   var url = $stacUrl.val();
   var json = jsonEditor.getValue();
 
-  data.version = $stacVersions.val();
+  data.schemaVersion = $stacVersions.val();
   if (json) {
     data.json = json;
   } else if (url) {
@@ -153,9 +153,11 @@ var runValidate = function (event) {
   setState(VALIDATING_STATE);
 
   var data = getFormValues();
+  console.log('data -> ', data)
   clearMessages();
   return validate(data)
     .then(function (results) {
+      console.log(results)
       var validationErrors = unwrapValidationResults(results, []);
       if (validationErrors.length === 0) {
         displayValidationSuccess();
