@@ -18,8 +18,8 @@ body {
   display: grid;
   position: fixed;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 86px 1fr;
-  grid-column-gap: 10px;
+  grid-template-rows: 86px 1fr 20px 5px;
+  grid-column-gap: 5px;
   grid-row-gap: 2px;
   height: 100vh;
   width: 100vw;
@@ -41,15 +41,29 @@ body {
   max-height: 90vh;
 }
 
+.code-editor {
+  grid-column: 1 / 2;
+  grid-row: 2 / 4;
+}
+
+.instruction {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+.footer {
+  text-align: center;
+  font-size: 0.8em;
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+}
+
+
 .CodeMirror {
   height: 98%;
 }
 
 
-footer {
-  text-align: center;
-  font-size: 0.8em;
-}
 
 footer a {
   text-decoration: underline;
