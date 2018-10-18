@@ -16,7 +16,10 @@ var VALIDATED_STATE = 'validated';
 var VALIDATION_URL = 'https://08tl0pxipc.execute-api.us-west-1.amazonaws.com/prod/stac_validator';
 
 var jsonEditor = CodeMirror(document.getElementById('editor'), {
-  value: '',
+  scrollbarStyle: 'native',
+  lineWrapping: true,
+  styleSelectedText: true,
+  value: "",
   lineNumbers: true,
   theme: 'blackboard',
   mode: 'json'
