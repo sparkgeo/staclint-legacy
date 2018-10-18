@@ -78,7 +78,7 @@ var addErrorMessage = function (msg) {
 
   message += '<div class="validation-alert validation-error">' +
     '<i class="fa fa-exclamation-circle"></i> ' +
-    '<span>' + error_message + '</span>';
+    '<span class="response-message">' + error_message + '</span>';
 
   if (msg.path && msg.path.startsWith('/tmp/') === false) {
     message += '<div class="muted-text"><small>' + msg.path + '</small></div>';
@@ -125,7 +125,7 @@ var displayValidationErrors = function (errors) {
 var displayValidationSuccess = function () {
   var message = '<div class="validation-alert validation-success">' +
     '<i class="fa fa-check-circle"></i> ' +
-    '<span>No errors found. JSON is valid.</span></div>';
+    '<span class="response-message">No errors found. JSON is valid.</span></div>';
   $results.append(message);
 };
 
@@ -153,11 +153,9 @@ var runValidate = function (event) {
   setState(VALIDATING_STATE);
 
   var data = getFormValues();
-  console.log('data -> ', data)
   clearMessages();
   return validate(data)
     .then(function (results) {
-      console.log(results)
       var validationErrors = unwrapValidationResults(results, []);
       if (validationErrors.length === 0) {
         displayValidationSuccess();
