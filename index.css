@@ -10,20 +10,33 @@
   --main-error-color: #c62637;
 }
 
-.form-wrapper {
-  height: calc(100% - 30px);
+#editor {
+  width: 49vw;
+  height: 100%;
+  max-height: 90vh;
+}
+
+#stacVersions {
+  height: 150%;
+  width: 110%;
+  position: relative;
+  bottom: 25%;
+  right: 5%;
 }
 
 body {
   display: grid;
   position: fixed;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 86px 1fr;
-  grid-column-gap: 10px;
+  grid-template-columns: 1fr 1fr 5px;
+  grid-template-rows: 86px 1fr 20px 5px;
+  grid-column-gap: 5px;
   grid-row-gap: 2px;
   height: 100vh;
   width: 100vw;
+}
 
+form {
+  padding-top: calc(50% - 69px);
 }
 
 .header {
@@ -35,55 +48,38 @@ body {
   padding: 0 15px;
 }
 
-#editor {
-  width: 49vw;
-  height: 100%;
-  max-height: 90vh;
+.code-editor {
+  grid-column: 1 / 2;
+  grid-row: 2 / 4;
 }
 
-.CodeMirror {
-  height: 98%;
+.instruction {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
 }
 
-
-footer {
+.footer {
   text-align: center;
   font-size: 0.8em;
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
 }
 
-footer a {
-  text-decoration: underline;
-}
 
+.CodeMirror {
+  height: 100%;
+}
 
 .CodeMirror-scroll {
   height: 98%;
 }
 
-form {
-  padding-top: calc(50% - 69px);
+.form-wrapper {
+  height: calc(100% - 30px);
 }
 
-form.validated {
-  padding-top: 10px;
-  transition: padding-top 0.5s;
-}
-
-#stacVersions {
-  height: 150%;
-  width: 110%;
-  position: relative;
-  bottom: 25%;
-  right: 5%;
-}
-
-button i {
-  margin-right: 5px;
-}
-
-#stacUrl:invalid {
-  border: 2px solid var(--main-error-color);
-  background: #ffd3d3;
+.code {
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .validation-alert {
@@ -105,18 +101,32 @@ button i {
 .validation-error {
   border-color: var(--main-error-color);
 }
-.validation-error i {
-  color: var(--main-error-color);
-}
 
-.validation-success i {
-  color: var(--main-success-color);
+form.validated {
+  padding-top: 10px;
+  transition: padding-top 0.5s;
 }
 
 span.response-message {
   margin-left: 8px;
 }
 
-.code {
-  font-family: 'Courier New', Courier, monospace;
+#stacUrl:invalid {
+  border: 2px solid var(--main-error-color);
+  background: #ffd3d3;
+}
+
+button i {
+  margin-right: 5px;
+}
+
+footer a {
+  text-decoration: underline;
+}
+.validation-error i {
+  color: var(--main-error-color);
+}
+
+.validation-success i {
+  color: var(--main-success-color);
 }
