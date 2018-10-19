@@ -3,16 +3,10 @@
   "version": "0.0.1",
   "description": "Validate STAC catalog and/or item json files",
   "main": "",
-  "browserify-css": {
-    "autoInject": true,
-    "minify": false,
-    "rootDir": "./"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify -t [ browserify-css autoInject=true --minify=false --output bundle.css ] app.js -o bundle.js",
-    "watch": "watchify -t [ browserify-css autoInject=true --minify=false --output bundle.css ] app.js -o bundle.js",
-    "serve": "http-server -p 1234"
+    "build": "parcel build index.html",
+    "serve": "serve ./dist",
+    "start": "parcel index.html"
   },
   "repository": {
     "type": "git",
@@ -33,9 +27,10 @@
     "vue": "^2.5.17"
   },
   "devDependencies": {
-    "browserify": "^16.2.3",
-    "browserify-css": "^0.14.0",
-    "http-server": "^0.11.1",
-    "watchify": "^3.11.0"
-  }
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "parcel-bundler": "^1.10.3",
+    "serve": "^10.0.2"
+  },
+  "browserslist": "> 0.25%, not dead, not ie <= 8"
 }

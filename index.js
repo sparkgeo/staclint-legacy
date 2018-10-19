@@ -1,8 +1,9 @@
-require('./app.css');
+require('./index.css');
 var $ = require('jquery');
 var popper = require('popper.js');
 // var bootstrap = require('bootstrap');
 var CodeMirror = require('codemirror');
+require('codemirror/mode/javascript/javascript');
 
 var $stacUrl;
 var $results;
@@ -15,14 +16,23 @@ var VALIDATING_STATE = 'validating';
 var VALIDATED_STATE = 'validated';
 var VALIDATION_URL = 'https://08tl0pxipc.execute-api.us-west-1.amazonaws.com/prod/stac_validator';
 
+const foo = "one";
+let bar = "two";
+
+console.log(`this is ${foo} ${bar}`)
+
 var jsonEditor = CodeMirror(document.getElementById('editor'), {
+  mode: 'application/json',
+  indentUnit: 2,
   scrollbarStyle: 'native',
   lineWrapping: true,
   styleSelectedText: true,
+  indentWithTabs: true,
+  autoCloseTags: true,
+  autoCloseBrackets: true,
   value: "",
   lineNumbers: true,
   theme: 'blackboard',
-  mode: 'json'
 });
 
 var clearMessages = function () {
@@ -78,7 +88,7 @@ var addErrorMessage = function (msg) {
 
   message += '<div class="validation-alert validation-error">' +
     '<i class="fa fa-exclamation-circle"></i> ' +
-    '<span>' + error_message + '</span>';
+    '<span class="response-message">' + error_message + '</span>';
 
   if (msg.path && msg.path.startsWith('/tmp/') === false) {
     message += '<div class="muted-text"><small>' + msg.path + '</small></div>';
@@ -107,7 +117,7 @@ var getFormValues = function () {
   var url = $stacUrl.val();
   var json = jsonEditor.getValue();
 
-  data.version = $stacVersions.val();
+  data.schemaVersion = $stacVersions.val();
   if (json) {
     data.json = json;
   } else if (url) {
@@ -125,7 +135,7 @@ var displayValidationErrors = function (errors) {
 var displayValidationSuccess = function () {
   var message = '<div class="validation-alert validation-success">' +
     '<i class="fa fa-check-circle"></i> ' +
-    '<span>No errors found. JSON is valid.</span></div>';
+    '<span class="response-message">No errors found. JSON is valid.</span></div>';
   $results.append(message);
 };
 

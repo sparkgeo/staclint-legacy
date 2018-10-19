@@ -34,9 +34,6 @@ body {
   align-items: center;
   padding: 0 15px;
 }
-#results {
-  width: 95%;
-}
 
 #editor {
   width: 49vw;
@@ -95,8 +92,10 @@ button i {
   border: 2px solid black;
   padding: 10px;
   font-size: 1.2em;
-  display: block;
+  display: flex;
+  align-items: center;
   margin-bottom: 15px;
+
 }
 
 .validation-success {
@@ -112,6 +111,10 @@ button i {
 
 .validation-success i {
   color: var(--main-success-color);
+}
+
+span.response-message {
+  margin-left: 8px;
 }
 
 .code {
