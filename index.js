@@ -178,6 +178,14 @@ var runValidate = function (event) {
     });
 };
 
+var getVersions = function () {
+    $.getJSON("https://api.github.com/repos/radiantearth/stac-spec/tags", function (data) {
+        $.each(data, function (key, val) {
+            $stacVersions.append($("<option />").val(val.name).text(val.name))
+        });
+    })
+};
+
 var onContentChange = function () {
   var data = getFormValues();
   isValid = (data.url != null && $validateForm[0].checkValidity()) || data.json != null;
@@ -202,5 +210,6 @@ $(document).ready(function () {
   $validateButton = $('#validateButton');
   $validateForm = $('#validateForm');
   $stacVersions = $('#stacVersions');
+  getVersions()
   bindEvents();
 });
