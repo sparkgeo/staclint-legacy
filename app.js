@@ -1,7 +1,6 @@
 require('./app.css');
 var $ = require('jquery');
 var popper = require('popper.js');
-// var bootstrap = require('bootstrap');
 var CodeMirror = require('codemirror');
 require('codemirror/mode/javascript/javascript');
 
@@ -63,7 +62,7 @@ var setState = function (state) {
     disableInputs(true);
     enableButton(false);
     $validateForm.addClass('validated');
-    $validateButton.html('<i class="fas fa-sync-alt"></i> Validating');
+    $validateButton.html('<i class="fas fa-sync-alt fa-spin"></i> Validating');
   } else if (state === VALIDATED_STATE) {
     disableInputs(false);
     enableButton(true);
@@ -112,7 +111,7 @@ var getFormValues = function () {
   var url = $stacUrl.val();
   var json = jsonEditor.getValue();
 
-  data.schemaVersion = $stacVersions.val();
+  // data.schemaVersion = $stacVersions.val();
   if (json) {
     data.json = json;
   } else if (url) {
