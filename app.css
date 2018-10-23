@@ -18,6 +18,7 @@
 
 #results {
   max-width: 48vw;
+  overflow-y: scroll;
 }
 
 #stacVersions {
@@ -31,12 +32,12 @@
 body {
   display: grid;
   position: fixed;
+  top: 0;
+  bottom: 0;
   grid-template-columns: 1fr 1fr 5px;
   grid-template-rows: 86px 1fr 20px 5px;
   grid-column-gap: 5px;
   grid-row-gap: 2px;
-  height: 100vh;
-  width: 100vw;
 }
 
 form {
@@ -104,6 +105,11 @@ form {
 
 .validation-error {
   border-color: var(--main-error-color);
+}
+
+.results-container {
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .icon-container {
