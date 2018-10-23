@@ -16,6 +16,10 @@
   max-height: 90vh;
 }
 
+#results {
+  max-width: 48vw;
+}
+
 #stacVersions {
   height: 150%;
   width: 110%;
@@ -100,6 +104,14 @@ form {
 
 .validation-error {
   border-color: var(--main-error-color);
+}
+
+.icon-container {
+  margin-right: 20px;
+}
+
+.copy-container {
+  word-break: break-word;
 }
 
 form.validated {

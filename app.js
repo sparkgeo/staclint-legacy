@@ -80,15 +80,16 @@ var addErrorMessage = function (msg) {
   var message = '';
   var error_message = msg.error.replace(/'(.*?)'/g, '<span class="code">$1</span>');
 
+
   message += '<div class="validation-alert validation-error">' +
-    '<i class="fa fa-exclamation-circle"></i> ' +
-    '<span class="response-message">' + error_message + '</span>';
+    '<div class="icon-container"><i class="fa fa-exclamation-circle"></i></div>' +
+    '<div class="copy-container"<span class="response-message">' + error_message + '</span>';
 
   if (msg.path && msg.path.startsWith('/tmp/') === false) {
     message += '<div class="muted-text"><small>' + msg.path + '</small></div>';
   }
 
-  message += '</div>';
+  message += '</div></div>';
   $results.append(message);
 };
 
