@@ -9,6 +9,7 @@
     "rootDir": "./"
   },
   "scripts": {
+    "start": "npm run watch & npm run serve",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "browserify -t [ browserify-css autoInject=true --minify=false --output bundle.css ] app.js -o bundle.js",
     "watch": "watchify -t [ browserify-css autoInject=true --minify=false --output bundle.css ] app.js -o bundle.js",
