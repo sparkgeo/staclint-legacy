@@ -8,9 +8,12 @@
 :root {
   --main-success-color: #27873c;
   --main-error-color: #c62637;
+  --dark-background: #222;
+  --white-foreground: #eeeeee;
 }
 
 #editor {
+  display: none;
   width: 49vw;
   height: 100%;
   max-height: 90vh;
@@ -29,19 +32,20 @@
   right: 5%;
 }
 
-body {
+main {
   display: grid;
   position: fixed;
   top: 0;
   bottom: 0;
-  grid-template-columns: 1fr 1fr 5px;
+  width: 100vw;
+  grid-template-columns: 0fr 1fr 5px;
   grid-template-rows: 86px 1fr 20px 5px;
   grid-column-gap: 5px;
   grid-row-gap: 2px;
 }
 
 form {
-  padding-top: calc(50% - 69px);
+  padding-top: calc(30vh - 69px);
 }
 
 .header {
@@ -81,6 +85,8 @@ form {
 
 .form-wrapper {
   height: calc(100% - 30px);
+  max-width: 50vw;
+  margin: 0 auto;
 }
 
 .code {
@@ -118,6 +124,51 @@ form {
 
 .copy-container {
   word-break: break-word;
+}
+
+.editor__toggle {
+  position: relative;
+  display: flex;
+  height: 40px;
+  cursor: pointer;
+  user-select: none;
+  left: -17px;
+  top: 2px;
+}
+
+.toggle__symbol {
+  display: block;
+  width: 42px;
+  background: var(--dark-background);
+  color: var(--white-foreground);
+  font-size: 24px;
+  padding: 0 10px;
+}
+
+.toggle__arrow {
+  background: var(--dark-background);
+  color: var(--white-foreground);
+  font-size: 64px;
+  line-height: 28px;
+  margin-left: 3px;
+  padding: 0 3px 0 1px;
+  border-radius: 0px 8px 8px 0px;
+}
+
+.toggle__arrow-out {
+  display: block;
+}
+
+.toggle__arrow-in {
+  display: none;
+}
+
+.form__label-editor {
+  display: none;
+}
+
+.form__label-external {
+  display: block;
 }
 
 form.validated {

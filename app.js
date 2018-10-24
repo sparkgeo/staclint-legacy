@@ -9,7 +9,15 @@ var $results;
 var $validateButton;
 var $validateForm;
 var $stacVersions;
+var $editorToggle;
+var $externalUrlFormLabel;
+var $editorFormLabel;
+var $editorUrlInput;
+var $main;
+var $editor;
 
+
+var viewEditor = false;
 var isValid = false;
 var VALIDATING_STATE = 'validating';
 var VALIDATED_STATE = 'validated';
@@ -78,6 +86,7 @@ var setState = function (state) {
 
 var addErrorMessage = function (msg) {
   var message = '';
+  console.log('add error message triggered');
   var error_message = msg.error.replace(/'(.*?)'/g, '<span class="code">$1</span>');
 
 
@@ -113,7 +122,7 @@ var getFormValues = function () {
   var json = jsonEditor.getValue();
 
   // data.schemaVersion = $stacVersions.val();
-  if (json) {
+  if (viewEditor && json) {
     data.json = json;
   } else if (url) {
     data.url = url;
@@ -183,12 +192,29 @@ var onContentChange = function () {
   }
 };
 
+var toggleEditor = function () {
+  $externalUrlFormLabel.toggle();
+  $editorFormLabel.toggle();
+  $editorUrlInput.toggle();
+  $editor.toggle();
+
+  $('.toggle__symbol').toggle();
+  $('.toggle__arrow').toggle();
+
+  // Used for determing what element to validate
+  viewEditor = !viewEditor
+
+
+
+}
+
 // Events
 var bindEvents = function () {
   $validateButton.click(runValidate);
   jsonEditor.on('change', onContentChange);
   $stacUrl.on('keypress input', onContentChange);
   $validateForm.on('submit', runValidate);
+  $editorToggle.click(toggleEditor)
 };
 
 $(document).ready(function () {
@@ -197,5 +223,11 @@ $(document).ready(function () {
   $validateButton = $('#validateButton');
   $validateForm = $('#validateForm');
   $stacVersions = $('#stacVersions');
+  $editorToggle = $('#editorToggle');
+  $externalUrlFormLabel = $('.form__label-external');
+  $editorFormLabel = $('.form__label-editor');
+  $editorUrlInput = $('#stacUrl');
+  $main = $('main');
+  $editor = $('#editor');
   bindEvents();
 });
