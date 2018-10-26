@@ -150,6 +150,12 @@ a:hover {
   word-break: break-word;
 }
 
+.btn-dark {
+  width: 100%;
+  letter-spacing: 1.2px;
+  font-weight: 700;
+}
+
 .editor__toggle {
   position: relative;
   display: flex;
@@ -175,7 +181,7 @@ a:hover {
   font-size: 64px;
   line-height: 28px;
   margin-left: 3px;
-  padding: 0 3px 0 1px;
+  padding: 0 3px 0 2px;
   border-radius: 0px 8px 8px 0px;
 }
 
