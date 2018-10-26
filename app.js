@@ -23,19 +23,7 @@ var VALIDATING_STATE = 'validating';
 var VALIDATED_STATE = 'validated';
 var VALIDATION_URL = 'https://08tl0pxipc.execute-api.us-west-1.amazonaws.com/prod/stac_validator';
 
-var jsonEditor = CodeMirror(document.getElementById('editor'), {
-  mode: 'application/json',
-  indentUnit: 2,
-  scrollbarStyle: 'native',
-  lineWrapping: true,
-  styleSelectedText: true,
-  indentWithTabs: true,
-  autoCloseTags: true,
-  autoCloseBrackets: true,
-  value: "",
-  lineNumbers: true,
-  theme: 'blackboard',
-});
+var jsonEditor
 
 var clearMessages = function () {
   $results.empty();
@@ -203,15 +191,29 @@ var toggleEditor = function () {
 
   // Used for determing what element to validate
   viewEditor = !viewEditor
-
-
-
+  if (viewEditor && !jsonEditor) {
+    jsonEditor = CodeMirror(document.getElementById('editor'), {
+      mode: 'application/json',
+      indentUnit: 2,
+      scrollbarStyle: 'native',
+      lineWrapping: true,
+      styleSelectedText: true,
+      indentWithTabs: true,
+      autoCloseTags: true,
+      autoCloseBrackets: true,
+      value: "\n\n\n\n\n\n\n\n\n\n\n",
+      lineNumbers: true,
+      theme: 'blackboard',
+    });
+  }
 }
 
 // Events
 var bindEvents = function () {
   $validateButton.click(runValidate);
-  jsonEditor.on('change', onContentChange);
+  if (jsonEditor) {
+    jsonEditor.on('change', onContentChange);
+  }
   $stacUrl.on('keypress input', onContentChange);
   $validateForm.on('submit', runValidate);
   $editorToggle.click(toggleEditor)
