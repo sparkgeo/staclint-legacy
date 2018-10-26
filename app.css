@@ -8,8 +8,41 @@
 :root {
   --main-success-color: #27873c;
   --main-error-color: #c62637;
-  --dark-background: #222;
-  --white-foreground: #eeeeee;
+  --black: #333;
+  --dark-grey: #686868;
+  --grey: #888;
+  --light-grey: #bebebe
+  --white: #eeeeee;
+}
+
+main {
+  display: grid;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  grid-template-columns: 0fr 1fr 5px;
+  grid-template-rows: 86px 1fr 28px 5px;
+  grid-column-gap: 5px;
+  grid-row-gap: 2px;
+}
+
+form {
+  padding-top: calc(30vh - 69px);
+}
+
+label {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--dark-grey);
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
 }
 
 #editor {
@@ -30,22 +63,6 @@
   position: relative;
   bottom: 25%;
   right: 5%;
-}
-
-main {
-  display: grid;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  width: 100vw;
-  grid-template-columns: 0fr 1fr 5px;
-  grid-template-rows: 86px 1fr 20px 5px;
-  grid-column-gap: 5px;
-  grid-row-gap: 2px;
-}
-
-form {
-  padding-top: calc(30vh - 69px);
 }
 
 .header {
@@ -70,10 +87,17 @@ form {
 .footer {
   text-align: center;
   font-size: 0.8em;
-  grid-column: 2 / 3;
+  grid-column: 1 / 3;
   grid-row: 3 / 4;
-}
+  font-size: 1rem;
+  background: var(--black);
+  color: var(--light-grey);
+  position: relative;
+  width: 105vw;
+  height: 35px;
+  line-height: 35px;
 
+}
 
 .CodeMirror {
   height: 100%;
@@ -96,7 +120,7 @@ form {
 .validation-alert {
   background-color: #fff;
   min-height: 50px;
-  border: 2px solid black;
+  border: 2px solid var(--black);
   padding: 10px;
   font-size: 1.2em;
   display: flex;
@@ -139,15 +163,15 @@ form {
 .toggle__symbol {
   display: block;
   width: 42px;
-  background: var(--dark-background);
-  color: var(--white-foreground);
+  background: var(--black);
+  color: var(--white);
   font-size: 24px;
   padding: 0 10px;
 }
 
 .toggle__arrow {
-  background: var(--dark-background);
-  color: var(--white-foreground);
+  background: var(--black);
+  color: var(--white);
   font-size: 64px;
   line-height: 28px;
   margin-left: 3px;
@@ -180,11 +204,6 @@ span.response-message {
   margin-left: 8px;
 }
 
-#stacUrl:invalid {
-  border: 2px solid var(--main-error-color);
-  background: #ffd3d3;
-}
-
 button i {
   margin-right: 5px;
 }
@@ -198,4 +217,19 @@ footer a {
 
 .validation-success i {
   color: var(--main-success-color);
+}
+
+#stacUrl:invalid {
+  border: 2px solid var(--main-error-color);
+  background: #ffd3d3;
+}
+
+.footer a,
+.footer a:hover,
+.footer a:active {
+  color: var(--white);
+}
+
+.footer a:hover span.underline-hover {
+  text-decoration: underline;
 }
