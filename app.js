@@ -206,15 +206,13 @@ var toggleEditor = function () {
       lineNumbers: true,
       theme: 'blackboard',
     });
+    jsonEditor.on('change', onContentChange);
   }
 }
 
 // Events
 var bindEvents = function () {
   $validateButton.click(runValidate);
-  if (jsonEditor) {
-    jsonEditor.on('change', onContentChange);
-  }
   $stacUrl.on('keypress input', onContentChange);
   $validateForm.on('submit', runValidate);
   $editorToggle.click(toggleEditor)
