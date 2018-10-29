@@ -12,7 +12,8 @@
   --dark-grey: #686868;
   --grey: #888;
   --light-grey: #bebebe
-  --white: #eeeeee;
+  --white: #fff;
+  --rose: #ffd3d3;
 }
 
 main {
@@ -123,7 +124,7 @@ a:hover {
 }
 
 .validation-alert {
-  background-color: #fff;
+  background-color: var(--white);
   min-height: 50px;
   border: 2px solid var(--black);
   padding: 10px;
@@ -231,7 +232,7 @@ footer a {
 
 #stacUrl:invalid {
   border: 2px solid var(--main-error-color);
-  background: #ffd3d3;
+  background: var(--rose);
 }
 
 .footer a,
