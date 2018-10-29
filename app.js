@@ -1,6 +1,6 @@
 require('./app.css');
 var $ = require('jquery');
-var popper = require('popper.js');
+// var popper = require('popper.js');
 var CodeMirror = require('codemirror');
 require('codemirror/mode/javascript/javascript');
 
@@ -13,7 +13,7 @@ var $editorToggle;
 var $externalUrlFormLabel;
 var $editorFormLabel;
 var $editorUrlInput;
-var $main;
+// var $main;
 var $editor;
 
 
@@ -74,7 +74,6 @@ var setState = function (state) {
 
 var addErrorMessage = function (msg) {
   var message = '';
-  console.log('add error message triggered');
   var error_message = msg.error.replace(/'(.*?)'/g, '<span class="code">$1</span>');
 
 
@@ -176,9 +175,7 @@ var runValidate = function (event) {
 
 var onContentChange = function () {
   var data = getFormValues();
-  console.log('On content change triggered')
   isValid = (data.url != null && $validateForm[0].checkValidity()) || data.json != null;
-  console.log('is valid -> ', isValid)
   if (isValid === false) {
     enableButton(false);
   } else if (isValid === true) {
