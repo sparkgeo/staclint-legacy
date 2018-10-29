@@ -43,12 +43,12 @@ var enableButton = function (isEnabled) {
 
 var disableInputs = function (isDisabled) {
   if (isDisabled) {
-    jsonEditor.setOption('readOnly', true);
+    if (jsonEditor) { jsonEditor.setOption('readOnly', true); }
     $stacVersions.attr('disabled', true);
     $stacUrl.attr('disabled', true);
     return;
   }
-  jsonEditor.setOption('readOnly', false);
+  if (jsonEditor) { jsonEditor.setOption('readOnly', false); }
   $stacVersions.removeAttr('disabled');
   $stacUrl.removeAttr('disabled');
 }
@@ -107,7 +107,10 @@ var validate = function () {
 var getFormValues = function () {
   var data = {};
   var url = $stacUrl.val();
-  var json = jsonEditor.getValue();
+  var json;
+  if (jsonEditor) {
+    json = jsonEditor.getValue();
+  }
 
   // data.schemaVersion = $stacVersions.val();
   if (viewEditor && json) {
@@ -173,7 +176,9 @@ var runValidate = function (event) {
 
 var onContentChange = function () {
   var data = getFormValues();
+  console.log('On content change triggered')
   isValid = (data.url != null && $validateForm[0].checkValidity()) || data.json != null;
+  console.log('is valid -> ', isValid)
   if (isValid === false) {
     enableButton(false);
   } else if (isValid === true) {
