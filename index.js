@@ -4,6 +4,7 @@ var $ = require("jquery");
 var bootstrap = require("bootstrap");
 var CodeMirror = require("codemirror");
 require("codemirror/mode/javascript/javascript");
+import { getValidationErrors, buildErrorMessage } from "./helpers";
 
 var $stacUrl;
 var $results;
@@ -14,7 +15,7 @@ var $editorToggle;
 var $externalUrlFormLabel;
 var $editorFormLabel;
 var $editorUrlInput;
-// var $main;
+var $main;
 var $editor;
 
 var viewEditor = false;
@@ -91,28 +92,6 @@ var setState = function(state) {
   }
 };
 
-var addErrorMessage = function(msg) {
-  var message = "";
-  var error_message = msg.error.replace(
-    /'(.*?)'/g,
-    '<span class="code">$1</span>'
-  );
-
-  message +=
-    '<div class="validation-alert validation-error">' +
-    '<div class="icon-container"><i class="fa fa-exclamation-circle"></i></div>' +
-    '<div class="copy-container"<span class="response-message">' +
-    error_message +
-    "</span>";
-
-  if (msg.path && msg.path.startsWith("/tmp/") === false) {
-    message += '<div class="muted-text"><small>' + msg.path + "</small></div>";
-  }
-
-  message += "</div></div>";
-  $results.append(message);
-};
-
 var validate = function() {
   var values = getFormValues();
   var data = JSON.stringify(values);
@@ -144,8 +123,9 @@ var getFormValues = function() {
 };
 
 var displayValidationErrors = function(errors) {
+  console.log("Display Validation Errors called -> ", errors);
   for (var i = 0; i < errors.length; i++) {
-    addErrorMessage(errors[i]);
+    $results.append(buildErrorMessage(errors[i]));
   }
   $results.append('<div class="spacer"></div>');
 };
@@ -158,47 +138,30 @@ var displayValidationSuccess = function() {
   $results.append(message);
 };
 
-//
-
-// var unwrapValidationResults = function(results, output) {
-//   if (results.children) {
-//     for (var i = 0; i < results.children.length; i++) {
-//       var child = results.children[i];
-//       unwrapValidationResults(child, output);
-//     }
-//   }
-
-//   if (results.valid_stac === false) {
-//     output.push({
-//       path: results.path,
-//       error: results.error,
-//       asset_type: results.asset_type
-//     });
-//   }
-//   return output;
-// };
-
 var runValidate = function(event) {
   event.preventDefault();
 
   setState(VALIDATING_STATE);
+  clearMessages();
 
   var data = getFormValues();
-  clearMessages();
+
   return validate(data)
     .then(function(results) {
-      const {
-        asset_type: assetType,
-        valid_stac: validStac,
-        error_message: errorMessage,
-        children
-      } = results;
+      const { valid_stac, error_message, children } = results;
 
-      if (validStac) {
+      if (valid_stac) {
         displayValidationSuccess();
       } else {
-        // TODO: Display Validation errors
-        displayValidationSuccess();
+        const { url: path } = data;
+
+        const validationErrors = getValidationErrors({
+          valid_stac,
+          error_message,
+          children,
+          path
+        });
+        displayValidationErrors(validationErrors);
       }
     })
     .done(function() {
