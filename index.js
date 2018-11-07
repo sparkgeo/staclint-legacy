@@ -2,9 +2,8 @@ require("./index.css");
 var $ = require("jquery");
 // var popper = require('popper.js');
 var bootstrap = require("bootstrap");
-var CodeMirror = require("codemirror");
-require("codemirror/mode/javascript/javascript");
 import { getValidationErrors, buildErrorMessage } from "./helpers";
+import { jsonEditor } from "./modules";
 
 var $stacUrl;
 var $results;
@@ -24,20 +23,6 @@ var VALIDATING_STATE = "validating";
 var VALIDATED_STATE = "validated";
 var VALIDATION_URL =
   "https://08tl0pxipc.execute-api.us-west-1.amazonaws.com/prod/stac_validator";
-
-var jsonEditor = CodeMirror(document.getElementById("editor"), {
-  mode: "application/json",
-  indentUnit: 2,
-  scrollbarStyle: "native",
-  lineWrapping: true,
-  styleSelectedText: true,
-  indentWithTabs: true,
-  autoCloseTags: true,
-  autoCloseBrackets: true,
-  value: "",
-  lineNumbers: true,
-  theme: "blackboard"
-});
 
 var clearMessages = function() {
   $results.empty();
