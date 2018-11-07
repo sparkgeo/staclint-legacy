@@ -1,9 +1,13 @@
-require("./index.css");
-var $ = require("jquery");
+import $ from "jquery";
 // var popper = require('popper.js');
-var bootstrap = require("bootstrap");
-import { getValidationErrors, buildErrorMessage } from "./helpers";
-import { jsonEditor } from "./modules";
+import bootstrap from "bootstrap";
+import {
+  codeEditor,
+  getValidationErrors,
+  buildErrorMessage,
+  lintJson
+} from "./helpers";
+require("./index.css");
 
 var $stacUrl;
 var $results;
@@ -17,6 +21,7 @@ var $editorUrlInput;
 var $main;
 var $editor;
 
+var jsonEditor;
 var viewEditor = false;
 var isValid = false;
 var VALIDATING_STATE = "validating";
@@ -29,17 +34,15 @@ var clearMessages = function() {
 };
 
 var enableButton = function(isEnabled) {
-  if (isEnabled) {
-    $validateButton
-      .removeAttr("disabled")
-      .addClass("btn-success")
-      .removeClass("btn-light");
-  } else {
-    $validateButton
-      .attr("disabled", true)
-      .addClass("btn-light")
-      .removeClass("btn-success");
-  }
+  isEnabled
+    ? $validateButton
+        .removeAttr("disabled")
+        .addClass("btn-success")
+        .removeClass("btn-light")
+    : $validateButton
+        .attr("disabled", true)
+        .addClass("btn-light")
+        .removeClass("btn-success");
 };
 
 var disableInputs = function(isDisabled) {
@@ -77,19 +80,6 @@ var setState = function(state) {
   }
 };
 
-var validate = function() {
-  var values = getFormValues();
-  var data = JSON.stringify(values);
-  return $.ajax({
-    type: "POST",
-    url: VALIDATION_URL,
-    data: data,
-    dataType: "json"
-  }).then(function(results) {
-    return results;
-  });
-};
-
 var getFormValues = function() {
   var data = {};
   var url = $stacUrl.val();
@@ -99,6 +89,7 @@ var getFormValues = function() {
   }
 
   // data.schemaVersion = $stacVersions.val();
+  // TODO: Add Error Message for no data provided
   if (viewEditor && json) {
     data.json = json;
   } else if (url) {
@@ -119,6 +110,18 @@ var displayValidationSuccess = function() {
     '<i class="fa fa-check-circle"></i> ' +
     '<span class="response-message">No errors found. JSON is valid.</span></div>';
   $results.append(message);
+};
+
+const validate = formValues => {
+  const data = JSON.stringify(formValues);
+  return $.ajax({
+    type: "POST",
+    url: VALIDATION_URL,
+    dataType: "json",
+    data
+  }).then(function(results) {
+    return results;
+  });
 };
 
 var runValidate = function(event) {
@@ -166,14 +169,9 @@ var getVersions = function() {
 };
 
 var onContentChange = function() {
-  var data = getFormValues();
-  isValid =
-    (data.url != null && $validateForm[0].checkValidity()) || data.json != null;
-  if (isValid === false) {
-    enableButton(false);
-  } else if (isValid === true) {
-    enableButton(true);
-  }
+  const { url, json } = getFormValues();
+  isValid = (url != null && $validateForm[0].checkValidity()) || json != null;
+  enableButton(isValid);
 };
 
 var toggleEditor = function() {
@@ -188,19 +186,7 @@ var toggleEditor = function() {
   // Used for determing what element to validate
   viewEditor = !viewEditor;
   if (viewEditor && !jsonEditor) {
-    jsonEditor = CodeMirror(document.getElementById("editor"), {
-      mode: "application/json",
-      indentUnit: 2,
-      scrollbarStyle: "native",
-      lineWrapping: true,
-      styleSelectedText: true,
-      indentWithTabs: true,
-      autoCloseTags: true,
-      autoCloseBrackets: true,
-      value: "\n\n\n\n\n\n\n\n\n\n\n",
-      lineNumbers: true,
-      theme: "blackboard"
-    });
+    jsonEditor = codeEditor();
     jsonEditor.on("change", onContentChange);
   }
 };

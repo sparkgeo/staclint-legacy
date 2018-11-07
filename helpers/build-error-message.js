@@ -4,12 +4,10 @@ const mutedPath = path =>
     : "";
 
 // TODO: This will require expansion to other potential cases and a if/else method
-const setProperMessage = message => {
-  const isNotArrayRe = /is not of type 'array'/;
-  return message.match(isNotArrayRe)
+const setProperMessage = message =>
+  message.match(/is not of type 'array'/)
     ? "'collection' is not of type 'Array'"
     : message;
-};
 
 const buildErrorMessage = ({ path, msg } = {}) => `
   <div class="validation-alert validation-error">
