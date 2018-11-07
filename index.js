@@ -1,6 +1,7 @@
-require("./app.css");
+require("./index.css");
 var $ = require("jquery");
 // var popper = require('popper.js');
+var bootstrap = require("bootstrap");
 var CodeMirror = require("codemirror");
 require("codemirror/mode/javascript/javascript");
 
@@ -23,7 +24,19 @@ var VALIDATED_STATE = "validated";
 var VALIDATION_URL =
   "https://08tl0pxipc.execute-api.us-west-1.amazonaws.com/prod/stac_validator";
 
-var jsonEditor;
+var jsonEditor = CodeMirror(document.getElementById("editor"), {
+  mode: "application/json",
+  indentUnit: 2,
+  scrollbarStyle: "native",
+  lineWrapping: true,
+  styleSelectedText: true,
+  indentWithTabs: true,
+  autoCloseTags: true,
+  autoCloseBrackets: true,
+  value: "",
+  lineNumbers: true,
+  theme: "blackboard"
+});
 
 var clearMessages = function() {
   $results.empty();
@@ -193,6 +206,21 @@ var runValidate = function(event) {
     });
 };
 
+var getVersions = function() {
+  $.getJSON(
+    "https://api.github.com/repos/radiantearth/stac-spec/tags",
+    function(data) {
+      $.each(data, function(key, val) {
+        $stacVersions.append(
+          $("<option />")
+            .val(val.name)
+            .text(val.name)
+        );
+      });
+    }
+  );
+};
+
 var onContentChange = function() {
   var data = getFormValues();
   isValid =
@@ -253,5 +281,6 @@ $(document).ready(function() {
   $editorUrlInput = $("#stacUrl");
   $main = $("main");
   $editor = $("#editor");
+
   bindEvents();
 });

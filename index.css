@@ -11,7 +11,7 @@
   --black: #333;
   --dark-grey: #686868;
   --grey: #888;
-  --light-grey: #bebebe
+  --light-grey: #bebebe;
   --white: #fff;
   --rose: #ffd3d3;
 }
@@ -101,7 +101,6 @@ a:hover {
   width: 105vw;
   height: 35px;
   line-height: 35px;
-
 }
 
 .CodeMirror {
@@ -120,7 +119,7 @@ a:hover {
 }
 
 .code {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .validation-alert {
