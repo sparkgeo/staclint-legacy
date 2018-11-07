@@ -87,6 +87,7 @@ a:hover {
 .instruction {
   grid-column: 2 / 3;
   grid-row: 2 / 3;
+  overflow-y: hidden;
 }
 
 .footer {
