@@ -1,13 +1,14 @@
-import $ from "jquery";
+import $ from 'jquery';
 // var popper = require('popper.js');
-import bootstrap from "bootstrap";
+import bootstrap from 'bootstrap';
 import {
   codeEditor,
   getValidationErrors,
   buildErrorMessage,
-  lintJson
-} from "./helpers";
-require("./index.css");
+  validateJson,
+  validateStac,
+} from './helpers';
+require('./index.css');
 
 var $stacUrl;
 var $results;
@@ -24,10 +25,10 @@ var $editor;
 var jsonEditor;
 var viewEditor = false;
 var isValid = false;
-var VALIDATING_STATE = "validating";
-var VALIDATED_STATE = "validated";
+var VALIDATING_STATE = 'validating';
+var VALIDATED_STATE = 'validated';
 var VALIDATION_URL =
-  "https://08tl0pxipc.execute-api.us-west-1.amazonaws.com/prod/stac_validator";
+  'https://08tl0pxipc.execute-api.us-west-1.amazonaws.com/prod/stac_validator';
 
 var clearMessages = function() {
   $results.empty();
@@ -36,47 +37,47 @@ var clearMessages = function() {
 var enableButton = function(isEnabled) {
   isEnabled
     ? $validateButton
-        .removeAttr("disabled")
-        .addClass("btn-success")
-        .removeClass("btn-light")
+        .removeAttr('disabled')
+        .addClass('btn-success')
+        .removeClass('btn-light')
     : $validateButton
-        .attr("disabled", true)
-        .addClass("btn-light")
-        .removeClass("btn-success");
+        .attr('disabled', true)
+        .addClass('btn-light')
+        .removeClass('btn-success');
 };
 
 var disableInputs = function(isDisabled) {
   if (isDisabled) {
     if (jsonEditor) {
-      jsonEditor.setOption("readOnly", true);
+      jsonEditor.setOption('readOnly', true);
     }
-    $stacVersions.attr("disabled", true);
-    $stacUrl.attr("disabled", true);
+    $stacVersions.attr('disabled', true);
+    $stacUrl.attr('disabled', true);
     return;
   }
   if (jsonEditor) {
-    jsonEditor.setOption("readOnly", false);
+    jsonEditor.setOption('readOnly', false);
   }
-  $stacVersions.removeAttr("disabled");
-  $stacUrl.removeAttr("disabled");
+  $stacVersions.removeAttr('disabled');
+  $stacUrl.removeAttr('disabled');
 };
 
 var setState = function(state) {
   if (state === VALIDATING_STATE) {
     disableInputs(true);
     enableButton(false);
-    $validateForm.addClass("validated");
+    $validateForm.addClass('validated');
     $validateButton.html('<i class="fas fa-sync-alt fa-spin"></i> Validating');
   } else if (state === VALIDATED_STATE) {
     disableInputs(false);
     enableButton(true);
-    $validateForm.addClass("validated");
-    $validateButton.html("Revalidate");
+    $validateForm.addClass('validated');
+    $validateButton.html('Revalidate');
   } else {
     disableInputs(false);
     enableButton(true);
-    $validateForm.removeClass("validated");
-    $validateButton.html("Validate");
+    $validateForm.removeClass('validated');
+    $validateButton.html('Validate');
   }
 };
 
@@ -99,6 +100,7 @@ var getFormValues = function() {
 };
 
 var displayValidationErrors = function(errors) {
+  console.log('Display Validation Errors -> ', errors);
   for (var i = 0; i < errors.length; i++) {
     $results.append(buildErrorMessage(errors[i]));
   }
@@ -112,18 +114,6 @@ var displayValidationSuccess = function() {
   $results.append(message);
 };
 
-const validate = formValues => {
-  const data = JSON.stringify(formValues);
-  return $.ajax({
-    type: "POST",
-    url: VALIDATION_URL,
-    dataType: "json",
-    data
-  }).then(function(results) {
-    return results;
-  });
-};
-
 var runValidate = function(event) {
   event.preventDefault();
 
@@ -131,9 +121,25 @@ var runValidate = function(event) {
   clearMessages();
 
   var data = getFormValues();
+  let validateJsonResponse;
 
-  return validate(data)
+  const { json } = data;
+  if (json) {
+    validateJsonResponse = validateJson(json);
+
+    if (!validateJsonResponse.valid_stac) {
+      const jsonError = getValidationErrors(validateJsonResponse);
+      displayValidationErrors(jsonError);
+      setState(VALIDATED_STATE);
+      return;
+    }
+  }
+
+  validateStac(data)
     .then(function(results) {
+      if (results.errorMessage) {
+        throw results;
+      }
       const { valid_stac, error_message, children, path } = results;
 
       if (valid_stac) {
@@ -143,29 +149,24 @@ var runValidate = function(event) {
           valid_stac,
           error_message,
           children,
-          path
+          path,
         });
         displayValidationErrors(validationErrors);
       }
     })
+    .catch(function(error) {
+      console.error(error);
+      displayValidationErrors(
+        getValidationErrors({
+          valid_stac: false,
+          error_message: 'Unexpected error. Please let us know!',
+          path: 'Server-side Error',
+        })
+      );
+    })
     .done(function() {
       setState(VALIDATED_STATE);
     });
-};
-
-var getVersions = function() {
-  $.getJSON(
-    "https://api.github.com/repos/radiantearth/stac-spec/tags",
-    function(data) {
-      $.each(data, function(key, val) {
-        $stacVersions.append(
-          $("<option />")
-            .val(val.name)
-            .text(val.name)
-        );
-      });
-    }
-  );
 };
 
 var onContentChange = function() {
@@ -180,37 +181,37 @@ var toggleEditor = function() {
   $editorUrlInput.toggle();
   $editor.toggle();
 
-  $(".toggle__symbol").toggle();
-  $(".toggle__arrow").toggle();
+  $('.toggle__symbol').toggle();
+  $('.toggle__arrow').toggle();
 
   // Used for determing what element to validate
   viewEditor = !viewEditor;
   if (viewEditor && !jsonEditor) {
     jsonEditor = codeEditor();
-    jsonEditor.on("change", onContentChange);
+    jsonEditor.on('change', onContentChange);
   }
 };
 
 // Events
 var bindEvents = function() {
   $validateButton.click(runValidate);
-  $stacUrl.on("keypress input", onContentChange);
-  $validateForm.on("submit", runValidate);
+  $stacUrl.on('keypress input', onContentChange);
+  $validateForm.on('submit', runValidate);
   $editorToggle.click(toggleEditor);
 };
 
 $(document).ready(function() {
-  $stacUrl = $("#stacUrl");
-  $results = $("#results");
-  $validateButton = $("#validateButton");
-  $validateForm = $("#validateForm");
-  $stacVersions = $("#stacVersions");
-  $editorToggle = $("#editorToggle");
-  $externalUrlFormLabel = $(".form__label-external");
-  $editorFormLabel = $(".form__label-editor");
-  $editorUrlInput = $("#stacUrl");
-  $main = $("main");
-  $editor = $("#editor");
+  $stacUrl = $('#stacUrl');
+  $results = $('#results');
+  $validateButton = $('#validateButton');
+  $validateForm = $('#validateForm');
+  $stacVersions = $('#stacVersions');
+  $editorToggle = $('#editorToggle');
+  $externalUrlFormLabel = $('.form__label-external');
+  $editorFormLabel = $('.form__label-editor');
+  $editorUrlInput = $('#stacUrl');
+  $main = $('main');
+  $editor = $('#editor');
 
   bindEvents();
 });

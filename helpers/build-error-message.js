@@ -1,7 +1,7 @@
 const mutedPath = path =>
-  path && !path.startsWith("/tmp")
+  path && !path.startsWith('/tmp')
     ? `<div class="muted-text"><small>${path}</small></div>`
-    : "";
+    : '';
 
 // TODO: This will require expansion to other potential cases and a if/else method
 const setProperMessage = message =>
