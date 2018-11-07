@@ -126,7 +126,6 @@ var displayValidationErrors = function(errors) {
   for (var i = 0; i < errors.length; i++) {
     $results.append(buildErrorMessage(errors[i]));
   }
-  $results.append('<div class="spacer"></div>');
 };
 
 var displayValidationSuccess = function() {
