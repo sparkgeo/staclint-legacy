@@ -123,7 +123,6 @@ var getFormValues = function() {
 };
 
 var displayValidationErrors = function(errors) {
-  console.log("Display Validation Errors called -> ", errors);
   for (var i = 0; i < errors.length; i++) {
     $results.append(buildErrorMessage(errors[i]));
   }
@@ -148,13 +147,11 @@ var runValidate = function(event) {
 
   return validate(data)
     .then(function(results) {
-      const { valid_stac, error_message, children } = results;
+      const { valid_stac, error_message, children, path } = results;
 
       if (valid_stac) {
         displayValidationSuccess();
       } else {
-        const { url: path } = data;
-
         const validationErrors = getValidationErrors({
           valid_stac,
           error_message,
