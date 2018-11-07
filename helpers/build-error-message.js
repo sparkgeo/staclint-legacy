@@ -3,7 +3,7 @@ const mutedPath = path =>
     ? `<div class="muted-text"><small>${path}</small></div>`
     : "";
 
-// TODO: This will require expansion to other potential cases
+// TODO: This will require expansion to other potential cases and a if/else method
 const setProperMessage = message => {
   const isNotArrayRe = /is not of type 'array'/;
   return message.match(isNotArrayRe)

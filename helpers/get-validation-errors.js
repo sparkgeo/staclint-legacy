@@ -4,7 +4,7 @@ const getValidationErrors = ({
   children,
   path
 } = {}) => {
-  // Used for recursive calls
+  // Used for recursive calls. The first call of this function is going to be true.
   if (valid_stac) {
     return;
   }
@@ -15,6 +15,7 @@ const getValidationErrors = ({
     msg: error_message
   });
 
+  // Adds the responses from all recursive calls as siblings to the errorList array. Not children.
   if (children) {
     errorList.push(...[].concat(...children.map(getValidationErrors)));
   }
