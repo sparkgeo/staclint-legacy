@@ -45,5 +45,5 @@
       "pre-push": "npm run lint"
     }
   },
-  "browserslist": "> 0.25%, not dead, not ie <= 8"
+  "browserslist": "> 0.25%, not dead, not ie <= 10"
 }
