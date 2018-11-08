@@ -1,13 +1,45 @@
+// Note: A lot of this regex-hunting is due to stac-validator API returning a stringified python tuple in place of proper JSON
+// Once that is cleaned, these methods can go away.
+
+const parseTupleError = message =>
+  JSON.parse(
+    message
+      .replace(/\[|\]|, <unset>|, None|, \(\)|\<ValidationError: |\>/g, '')
+      .replace(/, ,/g, ',')
+      .replace(/^\(/, '[')
+      .replace(/\)$/, ']')
+  );
+
 const mutedPath = path =>
   path && !path.startsWith('/tmp')
     ? `<div class="muted-text"><small>${path}</small></div>`
     : '';
 
-// TODO: This will require expansion to other potential cases and a if/else method
-const setProperMessage = message =>
-  message.match(/is not of type 'array'/)
-    ? "'collection' is not of type 'Array'"
-    : message;
+const checkTupleRe = /^\(.*\)$/;
+const checkArrayErrorRe = /is not of type 'array'/;
+
+// Does the API return a stringified python tuple?
+const tupleFormattedError = message =>
+  message.match(checkTupleRe) ? true : false;
+
+const setProperMessage = message => {
+  if (tupleFormattedError(message)) {
+    if (message.match(checkArrayErrorRe)) {
+      return "'collection' is not of type 'Array'";
+    }
+    const parsedError = parseTupleError(message);
+    if (parsedError.length > 1) {
+      return parsedError
+        .map(i => `${i}</span><br /><span class="code">`)
+        .join('')
+        .replace(/<\/span><br \/><span class="code">$/, '');
+    }
+
+    return parsedError;
+  } else {
+    return message;
+  }
+};
 
 const buildErrorMessage = ({ path, msg } = {}) => `
   <div class="validation-alert validation-error">

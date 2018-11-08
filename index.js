@@ -126,8 +126,9 @@ var runValidate = function(event) {
   const { json } = data;
   if (json) {
     validateJsonResponse = validateJson(json);
-
-    if (!validateJsonResponse.valid_stac) {
+    if (validateJsonResponse.valid_stac) {
+      data.json = JSON.parse(data.json);
+    } else {
       const jsonError = getValidationErrors(validateJsonResponse);
       displayValidationErrors(jsonError);
       setState(VALIDATED_STATE);
@@ -160,7 +161,7 @@ var runValidate = function(event) {
         getValidationErrors({
           valid_stac: false,
           error_message: 'Unexpected error. Please let us know!',
-          path: 'Server-side Error',
+          path: 'Staclint',
         })
       );
     })
