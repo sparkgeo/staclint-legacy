@@ -6,13 +6,15 @@
   "scripts": {
     "build": "parcel build lib/index.html",
     "serve": "serve ./dist",
-    "start": "parcel lib/index.html"
+    "start": "parcel lib/index.html",
+    "lint": "eslint -c .eslintrc --ext .js ./lib/.",
+    "lint:fix": "eslint -c .eslintrc --ext .js ./lib/ --fix."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sparkgeo/stac-validator-ui.git"
   },
-  "author": "",
+  "author": "Sparkgeo",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/sparkgeo/stac-validator-ui/issues"
@@ -41,7 +43,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": ""
+      "pre-push": "npm run lint"
     }
   },
   "browserslist": "> 0.25%, not dead, not ie <= 8"
