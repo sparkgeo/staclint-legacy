@@ -24,7 +24,6 @@ const tupleFormattedError = message =>
   message.match(checkTupleRe) ? true : false;
 
 const setProperMessage = message => {
-  console.log('Initital message =>> ', message);
   if (tupleFormattedError(message)) {
     if (message.match(checkArrayErrorRe)) {
       return "'collection' is not of type 'Array'";

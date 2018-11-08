@@ -1,5 +1,4 @@
 import $ from 'jquery';
-// var popper = require('popper.js');
 import bootstrap from 'bootstrap';
 import {
   codeEditor,
@@ -160,14 +159,27 @@ var runValidate = function(event) {
       }
     })
     .catch(function(error) {
-      console.error(error);
-      displayValidationErrors(
-        getValidationErrors({
-          valid_stac: false,
-          error_message: 'Unexpected error. Please let us know!',
-          path: 'Staclint',
-        })
-      );
+      console.error('Server response error -> ', error);
+      console.log('Error status -> ', error.status);
+
+      if (error.status === 0) {
+        displayValidationErrors(
+          getValidationErrors({
+            valid_stac: false,
+            error_message:
+              'Server timeout due to size of the catalog. Consider using the stac-validator locally',
+            path: '',
+          })
+        );
+      } else {
+        displayValidationErrors(
+          getValidationErrors({
+            valid_stac: false,
+            error_message: 'Unexpected error. Please let us know!',
+            path: 'Staclint',
+          })
+        );
+      }
     })
     .done(function() {
       setState(VALIDATED_STATE);
@@ -212,16 +224,6 @@ const loadStacVersions = () => {
       $('#defaultStacVersion').remove();
     })
     .catch(console.error);
-
-  //   $.each(data, function(key, val) {
-  //     $stacVersions.append(
-  //       $('<option />')
-  //         .val(val.name)
-  //         .text(val.name)
-  //     );
-  //   });
-  // });
-  // $('#stacVersions').append(new Option('option text', 'value'));
 };
 
 $(document).ready(function() {
