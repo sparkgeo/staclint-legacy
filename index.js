@@ -7,6 +7,7 @@ import {
   buildErrorMessage,
   validateJson,
   validateStac,
+  getStacVersions,
 } from './helpers';
 require('./index.css');
 
@@ -82,9 +83,12 @@ var setState = function(state) {
 };
 
 var getFormValues = function() {
-  var data = {};
+  var data = {
+    schemaVersion: $stacVersions[0].value,
+  };
   var url = $stacUrl.val();
   var json;
+
   if (jsonEditor) {
     json = jsonEditor.getValue();
   }
@@ -96,11 +100,11 @@ var getFormValues = function() {
   } else if (url) {
     data.url = url;
   }
+
   return data;
 };
 
 var displayValidationErrors = function(errors) {
-  console.log('Display Validation Errors -> ', errors);
   for (var i = 0; i < errors.length; i++) {
     $results.append(buildErrorMessage(errors[i]));
   }
@@ -201,12 +205,31 @@ var bindEvents = function() {
   $editorToggle.click(toggleEditor);
 };
 
+const loadStacVersions = () => {
+  getStacVersions()
+    .then(data => {
+      data.forEach(i => $('#stacVersions').append(new Option(i.name, i.value)));
+      $('#defaultStacVersion').remove();
+    })
+    .catch(console.error);
+
+  //   $.each(data, function(key, val) {
+  //     $stacVersions.append(
+  //       $('<option />')
+  //         .val(val.name)
+  //         .text(val.name)
+  //     );
+  //   });
+  // });
+  // $('#stacVersions').append(new Option('option text', 'value'));
+};
+
 $(document).ready(function() {
   $stacUrl = $('#stacUrl');
+  $stacVersions = $('#stacVersions');
   $results = $('#results');
   $validateButton = $('#validateButton');
   $validateForm = $('#validateForm');
-  $stacVersions = $('#stacVersions');
   $editorToggle = $('#editorToggle');
   $externalUrlFormLabel = $('.form__label-external');
   $editorFormLabel = $('.form__label-editor');
@@ -215,4 +238,5 @@ $(document).ready(function() {
   $editor = $('#editor');
 
   bindEvents();
+  loadStacVersions();
 });

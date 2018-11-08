@@ -1,14 +1,15 @@
 // Note: A lot of this regex-hunting is due to stac-validator API returning a stringified python tuple in place of proper JSON
 // Once that is cleaned, these methods can go away.
 
-const parseTupleError = message =>
-  JSON.parse(
+const parseTupleError = message => {
+  return JSON.parse(
     message
       .replace(/\[|\]|, <unset>|, None|, \(\)|\<ValidationError: |\>/g, '')
       .replace(/, ,/g, ',')
       .replace(/^\(/, '[')
       .replace(/\)$/, ']')
   );
+};
 
 const mutedPath = path =>
   path && !path.startsWith('/tmp')
@@ -23,6 +24,7 @@ const tupleFormattedError = message =>
   message.match(checkTupleRe) ? true : false;
 
 const setProperMessage = message => {
+  console.log('Initital message =>> ', message);
   if (tupleFormattedError(message)) {
     if (message.match(checkArrayErrorRe)) {
       return "'collection' is not of type 'Array'";
