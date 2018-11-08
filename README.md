@@ -1,11 +1,7 @@
 
 staclint.com
 ------------
-
-
-
-Running Locally
----
+This is the linting client for the stac validation tools offered by sparkgeo. Parcel, and JQuery
 
 ### Installing
 To install the dependencies, run `npm i` in the command window. At this point, we aren't using environment variables, or any special configuration.

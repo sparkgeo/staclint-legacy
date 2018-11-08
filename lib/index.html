@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="index.css">
+
+  <title>STAC Lint - The STAC catalog and/or Item JSON linter</title>
+</head>
+
+<body>
+  <main>
+    <div class="header bg-white border-bottom">
+      <svg class="my-0 mr-md-auto" height="45px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <image xlink:href="images/logo.svg" src="images/logo.png" x="9" y="6" height="38px" width="138px" />
+      </svg>
+      <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="https://medium.com/radiant-earth-insights/announcing-the-spatiotemporal-asset-catalog-stac-specification-1db58820b9cf">
+          <i class="fab fa-medium"></i> Specification Overview</a>
+        <a class="p-2 text-dark" href="https://github.com/sparkgeo/stac-validator-ui"><i class="fab fa-github"></i>
+          Github Repo</a>
+      </nav>
+    </div>
+
+    <section class="code-editor">
+      <div id="editor"></div>
+    </section>
+    <section class="instruction col">
+      <div class="editor__toggle" id="editorToggle">
+        <div class="toggle__symbol">{ }</div>
+        <div class="toggle__arrow toggle__arrow-out">▸</div>
+        <div class="toggle__arrow toggle__arrow-in">◂</div>
+      </div>
+
+      <div class="form-wrapper">
+
+        <form name="form" id="validateForm">
+          <div class="row">
+            <div class="col col-md-12">
+              <div class="form-group">
+                <label for="form" class="form__label-editor">Paste your code on the left to validate</label>
+                <label for="form" class="form__label-external">Provide an external URL to validate</label>
+                <input id="stacUrl" name="url" type="url" pattern="^(http|https)://.*" class="form-control form-control-lg"
+                  placeholder="External STAC JSON URL">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-md-6">
+              <button id="validateButton" type="button" class="btn btn-lg btn-dark" style="width: 100%;" disabled>Validate</button>
+            </div>
+            <div class="col col-md-6">
+              <div class="form-group form-control-lg">
+                <select name="schemaVersion" id="stacVersions" class="form-control">
+                  <option selected value="v0.6.0" id="defaultStacVersion">v0.6.0</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div class="results-container">
+          <div id="results">
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+    <section class="footer">
+      <a href="https://sparkgeo.com" target="_blank">Made by <span class="underline-hover">Sparkgeo</span></a> |
+      <a href="https://github.com/sparkgeo/staclint" target="_blank">UI on <span class="underline-hover">Github</span></a> |
+      <a href="https://github.com/sparkgeo/stac-validator" target="_blank">stac-validator on <span class="underline-hover">Github</span></a>
+    </section>
+
+  </main>
+  <script src="index.js"></script>
+
+
+</body>
+
+</html>
