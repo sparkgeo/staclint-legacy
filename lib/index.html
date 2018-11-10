@@ -14,18 +14,18 @@
 </head>
 
 <body>
+  <header class="header bg-white border-bottom">
+    <svg class="my-0 mr-md-auto" height="45px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <image xlink:href="images/logo.svg" src="images/logo.png" x="9" y="6" height="38px" width="138px" />
+    </svg>
+    <nav class="my-2 my-md-0 mr-md-3">
+      <a class="p-2 text-dark" href="https://medium.com/radiant-earth-insights/announcing-the-spatiotemporal-asset-catalog-stac-specification-1db58820b9cf">
+        <i class="fab fa-medium"></i> Specification Overview</a>
+      <a class="p-2 text-dark" href="https://github.com/sparkgeo/stac-validator-ui"><i class="fab fa-github"></i>
+        Github Repo</a>
+    </nav>
+  </header>
   <main>
-    <div class="header bg-white border-bottom">
-      <svg class="my-0 mr-md-auto" height="45px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <image xlink:href="images/logo.svg" src="images/logo.png" x="9" y="6" height="38px" width="138px" />
-      </svg>
-      <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-dark" href="https://medium.com/radiant-earth-insights/announcing-the-spatiotemporal-asset-catalog-stac-specification-1db58820b9cf">
-          <i class="fab fa-medium"></i> Specification Overview</a>
-        <a class="p-2 text-dark" href="https://github.com/sparkgeo/stac-validator-ui"><i class="fab fa-github"></i>
-          Github Repo</a>
-      </nav>
-    </div>
 
     <section class="code-editor">
       <div id="editor"></div>
@@ -72,13 +72,15 @@
       </div>
 
     </section>
-    <section class="footer">
-      <a href="https://sparkgeo.com" target="_blank">Made by <span class="underline-hover">Sparkgeo</span></a> |
-      <a href="https://github.com/sparkgeo/staclint" target="_blank">UI on <span class="underline-hover">Github</span></a> |
-      <a href="https://github.com/sparkgeo/stac-validator" target="_blank">stac-validator on <span class="underline-hover">Github</span></a>
-    </section>
+
+
 
   </main>
+  <footer>
+    <a href="https://sparkgeo.com" target="_blank">Made by <span class="underline-hover">Sparkgeo</span></a> |
+    <a href="https://github.com/sparkgeo/staclint" target="_blank">UI on <span class="underline-hover">Github</span></a> |
+    <a href="https://github.com/sparkgeo/stac-validator" target="_blank">stac-validator on <span class="underline-hover">Github</span></a>
+  </footer>
   <script src="index.js"></script>
 
 
