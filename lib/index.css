@@ -55,6 +55,7 @@ a:hover {
 
 #results {
   overflow-y: scroll;
+  padding-bottom: 80px;
 }
 
 #stacVersions {
