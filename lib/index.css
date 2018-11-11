@@ -188,14 +188,6 @@ a:hover {
   border-radius: 0px 8px 8px 0px;
 }
 
-.toggle__arrow-out {
-  display: block;
-}
-
-.toggle__arrow-in {
-  display: none;
-}
-
 .form__label-editor {
   display: none;
 }
