@@ -16,16 +16,43 @@
   --rose: #ffd3d3;
 }
 
-main {
-  display: grid;
+header {
+  display: flex;
   position: fixed;
-  top: 0;
-  bottom: 0;
+  height: 65px;
   width: 100vw;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+}
+
+main {
+  position: fixed;
+  top: 65px;
+  bottom: 28px;
+  width: 100vw;
+  height: calc(100vh - 100px);
+  display: grid;
   grid-template-columns: 0fr 1fr 5px;
-  grid-template-rows: 86px 1fr 28px 5px;
+  grid-template-rows: 100%;
   grid-column-gap: 10px;
-  grid-row-gap: 2px;
+}
+
+footer {
+  height: 28px;
+  bottom: 0;
+  text-align: center;
+  font-size: 0.8em;
+  font-size: 1rem;
+  box-shadow: 0 -11px 6px -3px white;
+  background: var(--black);
+  color: var(--light-grey);
+  position: fixed;
+  width: 105vw;
+  height: 35px;
+  line-height: 35px;
+  z-index: 9001;
 }
 
 form {
@@ -55,6 +82,7 @@ a:hover {
 
 #results {
   overflow-y: scroll;
+  padding-bottom: 20px;
 }
 
 #stacVersions {
@@ -65,40 +93,13 @@ a:hover {
   right: 5%;
 }
 
-.header {
-  grid-column: 1 / 3;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 15px;
-}
-
 .code-editor {
   grid-column: 1 / 2;
-  grid-row: 2 / 4;
 }
 
 .instruction {
   grid-column: 2 / 3;
-  grid-row: 2 / 3;
   overflow-y: hidden;
-}
-
-.footer {
-  text-align: center;
-  font-size: 0.8em;
-  grid-column: 1 / 3;
-  grid-row: 3 / 4;
-  font-size: 1rem;
-  box-shadow: 0 -11px 6px -3px white;
-  background: var(--black);
-  color: var(--light-grey);
-  position: relative;
-  width: 105vw;
-  height: 35px;
-  line-height: 35px;
-  z-index: 9001;
 }
 
 .CodeMirror {
@@ -141,7 +142,7 @@ a:hover {
 
 .results-container {
   height: 80%;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 
 .icon-container {
@@ -187,14 +188,6 @@ a:hover {
   border-radius: 0px 8px 8px 0px;
 }
 
-.toggle__arrow-out {
-  display: block;
-}
-
-.toggle__arrow-in {
-  display: none;
-}
-
 .form__label-editor {
   display: none;
 }
@@ -232,12 +225,14 @@ footer a {
   background: var(--rose);
 }
 
-.footer a,
-.footer a:hover,
-.footer a:active {
+
+footer a,
+footer a:hover,
+footer a:active {
+
   color: var(--white);
 }
 
-.footer a:hover span.underline-hover {
+footer a:hover span.underline-hover {
   text-decoration: underline;
 }
