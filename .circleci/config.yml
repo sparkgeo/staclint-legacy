@@ -50,6 +50,9 @@ jobs:
       - restore_cache:
           key: v1-dist-{{ .Environment.CIRCLE_SHA1 }}
       - run:
+          name: build
+          command: npm run build
+      - run:
           name: deploy to aws
           command: aws s3 sync ./dist/ s3://staclint.com/staging --delete
 
@@ -59,6 +62,9 @@ jobs:
       - checkout
       - restore_cache:
           key: v1-dist-{{ .Environment.CIRCLE_SHA1 }}
+      - run:
+          name: build
+          command: npm run build
       - run:
           name: deploy to aws
           command: aws s3 sync ./dist/ s3://staclint.com --delete
