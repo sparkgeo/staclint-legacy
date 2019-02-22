@@ -72,4 +72,4 @@ workflows:
             - build
           filters:
             branches:
-              only: /rc[0-9]+(\.[0-9]+)+/
+              only: develop
