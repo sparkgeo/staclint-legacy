@@ -51,7 +51,7 @@ jobs:
           key: v1-dist-{{ .Environment.CIRCLE_SHA1 }}
       - run:
           name: deploy to aws
-          command: aws s3 sync dist/ s3://staclint.com/staging --delete
+          command: aws s3 sync ./dist/ s3://staclint.com/staging --delete
 
   deploy-prod:
     <<: *defaults
@@ -61,7 +61,7 @@ jobs:
           key: v1-dist-{{ .Environment.CIRCLE_SHA1 }}
       - run:
           name: deploy to aws
-          command: aws s3 sync dist/ s3://staclint.com --delete
+          command: aws s3 sync ./dist/ s3://staclint.com --delete
 
 workflows:
   version: 2
@@ -71,12 +71,12 @@ workflows:
           filters:
             tags:
               only: /.*/
-      # - deploy-staging:
-      #     requires:
-      #       - build
-      #     filters:
-      #       branches:
-      #         only: develop
+      - deploy-staging:
+          requires:
+            - build
+          filters:
+            branches:
+              only: develop
       - deploy-prod:
           requires:
             - build
