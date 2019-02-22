@@ -47,8 +47,25 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+
+      # Download and cache dependencies
       - restore_cache:
-          key: v1-dist-{{ .Environment.CIRCLE_SHA1 }}
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: npm install
+
+      - run:
+          name: Lint
+          command: npm run lint
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
       - run:
           name: build
           command: npm run build
@@ -60,8 +77,25 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+
+      # Download and cache dependencies
       - restore_cache:
-          key: v1-dist-{{ .Environment.CIRCLE_SHA1 }}
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: npm install
+
+      - run:
+          name: Lint
+          command: npm run lint
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
       - run:
           name: build
           command: npm run build
