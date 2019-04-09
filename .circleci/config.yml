@@ -70,6 +70,9 @@ jobs:
           name: build
           command: npm run build
       - run:
+          name: clean folder
+          command: aws s3 rm s3://staclint.com --recursive --exclude="*" --include="staging/*.*"
+      - run:
           name: deploy to aws
           command: aws s3 sync ./dist/ s3://staclint.com/staging --delete
 
