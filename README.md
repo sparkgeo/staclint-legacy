@@ -1,5 +1,5 @@
 
-staclint.com
+[staclint.com](https://staclint.com)
 ------------
 This is the linting client for the stac validation tools offered by sparkgeo. Parcel, and JQuery
 
