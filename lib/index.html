@@ -28,12 +28,12 @@
   <main>
 
     <section class="code-editor">
-      <div id="editor"></div>
+      <div id="editor" style="display:block;"></div>
     </section>
     <section class="instruction col">
-      <div class="editor__toggle" id="editorToggle">
-        <div class="toggle__symbol">{ }</div>
-        <div class="toggle__arrow">▸</div>
+      <div class="editor__toggle" id="editorToggle" >
+        <div class="toggle__symbol" style="display: block;">STAC URL</div>
+        <div class="toggle__arrow">◂</div>
       </div>
 
       <div class="form-wrapper">
@@ -42,8 +42,8 @@
           <div class="row">
             <div class="col col-md-12">
               <div class="form-group">
-                <label for="form" class="form__label">Provide an external URL to validate</label>
-                <input id="stacUrl" style="display: block;" name="url" type="url" pattern="^(http|https)://.*" class="form-control form-control-lg"
+                <label for="form" class="form__label">Paste your code on the left to validate</label>
+                <input id="stacUrl"  name="url" type="url" pattern="^(http|https)://.*" class="form-control form-control-lg"
                   placeholder="External STAC JSON URL">
               </div>
             </div>
