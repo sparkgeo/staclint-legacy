@@ -107,7 +107,7 @@ workflows:
   version: 2
   build-deploy:
     jobs:
-      - test-build:
+      - build:
           filters:
             tags:
               only: /.*/
