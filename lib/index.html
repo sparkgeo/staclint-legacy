@@ -6,23 +6,48 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+
   <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="./index.css">
 
   <title>STAC Lint - The STAC catalog and/or Item JSON linter</title>
+
 </head>
 
 <body>
   <header class="header bg-white border-bottom">
-    <svg class="my-0 mr-md-auto" height="45px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <svg class="my-0 mr-md-auto" height="45px" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink">
       <image xlink:href="images/logo.svg" src="images/logo.png" x="9" y="6" height="38px" width="138px" />
     </svg>
+    <!-- <div style="background-image: url('images/sparkgeo-logo.png');"> -->
+    <!-- <style>
+      div {
+        background-image: url('images/sparkgeo-logo.png');
+        height: 1%;
+        /* width: 1%; */
+        background-position: left;
+        background-repeat: no-repeat;
+        /* background-size: cover; */
+      }
+    </style> -->
+    <!-- <img src="images/sparkgeo-logo.png" /> -->
+
+
+    <!-- <svg class="my-0 mr-md-auto" height="45px" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"> -->
+    <!-- <img src="images/sparkgeo-logo.png" /> -->
+    <!-- </svg> -->
+
     <nav class="my-2 my-md-0 mr-md-3">
-      <a class="p-2 text-dark" href="https://medium.com/radiant-earth-insights/announcing-the-spatiotemporal-asset-catalog-stac-specification-1db58820b9cf">
+      <a class="p-2 text-dark"
+        href="https://medium.com/radiant-earth-insights/announcing-the-spatiotemporal-asset-catalog-stac-specification-1db58820b9cf">
         <i class="fab fa-medium"></i> Specification Overview</a>
       <a class="p-2 text-dark" href="https://github.com/radiantearth/stac-spec"><i class="fab fa-github"></i>
         Specification Repo</a>
+      <!-- <a class="p-2 text-dark" href="https://github.com/sparkgeo/stac-validator"><i class="fab fa-github"></i>
+        stac-validator</a> -->
     </nav>
   </header>
   <main>
@@ -31,10 +56,14 @@
       <div id="editor" style="display:block;"></div>
     </section>
     <section class="instruction col">
-      <div class="editor__toggle" id="editorToggle" >
+      <!-- <img src="images/sparkgeo-logo.png" /> -->
+
+      <div class="editor__toggle" id="editorToggle">
         <div class="toggle__symbol" style="display: block;">STAC URL</div>
         <div class="toggle__arrow">◂</div>
       </div>
+
+
 
       <div class="form-wrapper">
 
@@ -42,24 +71,98 @@
           <div class="row">
             <div class="col col-md-12">
               <div class="form-group">
+
                 <label for="form" class="form__label">Paste your code on the left to validate</label>
-                <input id="stacUrl"  name="url" type="url" pattern="^(http|https)://.*" class="form-control form-control-lg"
-                  placeholder="External STAC JSON URL">
+                <input id="stacUrl" name="url" type="url" pattern="^(http|https)://.*"
+                  class="form-control form-control-lg" placeholder="External STAC JSON URL">
               </div>
             </div>
           </div>
+
+
+
           <div class="row">
             <div class="col col-md-6">
-              <button id="validateButton" type="button" class="btn btn-lg btn-dark" style="width: 100%;" disabled>Validate</button>
+              <button id="validateButton" type="button" class="btn btn-lg btn-dark" style="width: 100%;"
+                disabled>Validate</button>
             </div>
+
             <div class="col col-md-6">
               <div class="form-group form-control-lg">
                 <select name="schemaVersion" id="stacVersions" class="form-control">
-                  <option selected value="v0.6.0" id="defaultStacVersion">v0.6.0</option>
+                  <option selected value="v1.0.0-beta.1">v1.0.0-beta.1</option>
+                  <option selected value="v0.9.0">v0.9.0</option>
+                  <option selected value="v0.8.1">v0.8.1</option>
+                  <option selected value="v0.8.0">v0.8.0</option>
+                  <option selected value="v0.7.0">v0.7.0</option>
+                  <option selected value="v0.6.2">v0.6.2</option>
+                  <option selected value="v0.6.1">v0.6.1</option>
+                  <option selected value="v0.6.0">v0.6.0</option>
+                  <!-- <option selected value="v0.5.2">v0.5.2</option>
+                  <option selected value="v0.5.1">v0.5.1</option>
+                  <option selected value="v0.5.0">v0.5.0</option>
+                  <option selected value="v0.4.1">v0.4.1</option>
+                  <option selected value="v0.4.0">v0.4.0</option> -->
+                  <option selected value="v1.0.0-beta.2" id="defaultStacVersion">v1.0.0-beta.2</option>
                 </select>
               </div>
             </div>
           </div>
+
+
+
+          <div class="row">
+            <div class="col col-md-6">
+              <button id="validateExtensionButton" type="button" class="btn btn-lg btn-light" style="width: 100%;"
+                disabled>Extension (v0.8.0 +)</button>
+            </div>
+
+            <div class="col col-md-6">
+              <div class="form-group form-control-lg">
+                <select name="schemaExtension" id="stacExtensions" class="form-control">
+                  <option selected value="checksum">checksum</option>
+                  <option selected value="collection-assets">collection-assets</option>
+                  <option selected value="datacube">datacube</option>
+                  <option selected value="eo">eo</option>
+                  <option selected value="item-assets">item-assets</option>
+                  <option selected value="label">label</option>
+                  <option selected value="pointcloud">pointcloud</option>
+                  <option selected value="projection">projection</option>
+                  <option selected value="sar">sar</option>
+                  <option selected value="sat">sat</option>
+                  <option selected value="scientific">scientific</option>
+                  <option selected value="single-file-stac">single-file-stac</option>
+                  <option selected value="tiled-assets">tiled-assets</option>
+                  <option selected value="timestamps">timestamps</option>
+                  <option selected value="version">version</option>
+                  <option selected value="view">view</option>
+                  <option selected value="None">None</option>
+                  <option selected value="All" id="defaultStacExtension">All</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="row">
+            <div class="col col-md-6">
+              <button id="validateAllButton" type="button" class="btn btn-lg btn-light" style="width: 100%;"
+                disabled>Recursive (v0.8.0 +)</button>
+            </div>
+
+            <div class="col col-md-6">
+              <div class="form-group form-control-lg">
+                <select name="schemaAll" id="stacAll" class="form-control">
+                  <option selected value="yes">yes</option>
+                  <option selected value="no" id="defaultAll">no</option>
+                </select>
+              </div>
+            </div>
+          </div> -->
+
+
+
+
+
         </form>
 
         <div class="results-container">
@@ -76,8 +179,10 @@
   </main>
   <footer>
     <a href="https://sparkgeo.com" target="_blank">Made by <span class="underline-hover">Sparkgeo</span></a> |
-    <a href="https://github.com/sparkgeo/staclint" target="_blank">UI on <span class="underline-hover">Github</span></a> |
-    <a href="https://github.com/sparkgeo/stac-validator" target="_blank">stac-validator on <span class="underline-hover">Github</span></a>
+    <a href="https://github.com/sparkgeo/staclint" target="_blank">UI on <span class="underline-hover">Github</span></a>
+    |
+    <a href="https://github.com/sparkgeo/stac-validator" target="_blank">stac-validator on <span
+        class="underline-hover">Github</span></a>
   </footer>
   <script src="./index.js"></script>
 
