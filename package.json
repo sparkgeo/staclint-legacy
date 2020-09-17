@@ -2,7 +2,7 @@
   "name": "stac-validator-ui",
   "version": "0.0.1",
   "description": "Validate STAC catalog and/or item json files",
-  "main": "",
+  "main": "index.js",
   "scripts": {
     "build": "parcel build lib/index.html",
     "serve": "serve ./dist",
@@ -46,5 +46,8 @@
       "pre-push": "npm run lint"
     }
   },
-  "browserslist": "> 0.25%, not dead, not ie <= 10"
+  "browserslist": "> 0.25%, not dead, not ie <= 10",
+  "directories": {
+    "lib": "lib"
+  }
 }
