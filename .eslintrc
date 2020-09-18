@@ -85,10 +85,10 @@
         "null": "ignore"
       }
     ],
-    // "func-call-spacing": [
-    //   "error",
-    //   "never"
-    // ],
+    "func-call-spacing": [
+      "error",
+      "never"
+    ],
     "generator-star-spacing": [
       "error",
       {
@@ -371,10 +371,10 @@
       "error",
       "always"
     ],
-    "space-before-function-paren": [
-      "error",
-      "never"
-    ],
+    // "space-before-function-paren": [
+    //   "error",
+    //   "never"
+    // ],
     "space-in-parens": [
       "error",
       "never"
