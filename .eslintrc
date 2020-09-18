@@ -1,5 +1,4 @@
-
- {
+{
   "parserOptions": {
     "ecmaVersion": 2017,
     "ecmaFeatures": {
@@ -41,8 +40,8 @@
         "allowSingleLine": true
       }
     ],
-    "camelcase": ["warn",
-
+    "camelcase": [
+      "warn",
       {
         "ignoreDestructuring": true,
         "properties": "never"
@@ -86,10 +85,10 @@
         "null": "ignore"
       }
     ],
-    "func-call-spacing": [
-      "error",
-      "never"
-    ],
+    // "func-call-spacing": [
+    //   "error",
+    //   "never"
+    // ],
     "generator-star-spacing": [
       "error",
       {
@@ -473,4 +472,3 @@
     ]
   }
 }
-
