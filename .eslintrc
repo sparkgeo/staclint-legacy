@@ -1,5 +1,4 @@
-
- {
+{
   "parserOptions": {
     "ecmaVersion": 2017,
     "ecmaFeatures": {
@@ -23,6 +22,7 @@
   },
   "rules": {
     "accessor-pairs": "error",
+
   
     "camelcase": ["warn",
 
@@ -267,4 +267,3 @@
 
   }
 }
-
