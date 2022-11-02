@@ -24,7 +24,7 @@
     "@fortawesome/fontawesome-free": "^5.3.1",
     "axios": "^0.18.1",
     "bootstrap": ">=4.3.1",
-    "codemirror": "^5.40.2",
+    "codemirror": "^5.58.2",
     "jquery": "^3.5.0",
     "jsonlint-mod": "^1.7.2",
     "parse-json": "^4.0.0",
